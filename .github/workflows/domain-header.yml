@@ -29,13 +29,16 @@ jobs:
         name: config-server-0.0.1
         path: target/
         
-    - run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/domain-header-asserter
-    - name: login to docker hub
-      env: 
-       DOCKER_USER: ${{secrets.DOCKER_USER}}
-       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+    - run: docker build . --file Dockerfile --tag ${{secrets.ACR_SERVER_URL}}/domain-header-asserter
+    - name: login to ACR
+      uses: Azure/docker-login@v1
+      with:
+        username: ${{secrets.ACR_USER}} 
+        # Container registry password
+        password: ${{secrets.ACR_PASSWORD}}
+        # Container registry server url
+        login-server: ${{secrets.ACR_SERVER_URL}}
+    - name: push docker image to ACR
       run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD    
-    - name: Push the docker image to docker hub
-      run: docker push ${{secrets.DOCKER_USER}}/domain-header-asserter
+        docker push ${{secrets.ACR_SERVER_URL}}/domain-header-asserter
 
