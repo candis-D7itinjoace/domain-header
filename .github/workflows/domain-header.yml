@@ -22,11 +22,6 @@ jobs:
       run:
         mvn clean install package
         
-    - uses: actions/upload-artifact@v3.1.0
-      with:
-        name: config-server-0.0.1
-        path: target/
-        
     - run: docker build . --file Dockerfile --tag ${{secrets.ACR_SERVER_URL}}/domain-header-asserter
     - name: login to ACR
       uses: Azure/docker-login@v1
