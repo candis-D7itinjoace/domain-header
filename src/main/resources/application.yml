@@ -24,8 +24,8 @@ spring:
 #    service-url:
 #      default-zone: http://localhost:8761/eureka/
 #
-#jwt:
-#  secret: "mou3a9kenTW44sSa3Feha"
+jwt:
+  secret: "mou3a9kenTW44sSa3Feha"
 
 eureka:
   client:
