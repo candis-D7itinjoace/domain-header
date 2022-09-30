@@ -24,6 +24,7 @@ spring:
 #    service-url:
 #      default-zone: http://localhost:8761/eureka/
 #
+<<<<<<< HEAD
 jwt:
   secret: "mou3a9kenTW44sSa3Feha"
 
@@ -36,3 +37,7 @@ eureka:
   instance:
     prefer-ip-address: true
     hostname: eureka-0
+=======
+#jwt:
+#  secret: "mou3a9kenTW44sSa3Feha"
+>>>>>>> parent of 3754d4d (first config for domain header fingers crossed)
