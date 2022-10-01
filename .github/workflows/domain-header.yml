@@ -22,16 +22,9 @@ jobs:
       run:
         mvn clean install package
         
-    - run: docker build . --file Dockerfile --tag ${{secrets.ACR_SERVER_URL}}/domain-header-asserter
-    - name: login to ACR
-      uses: Azure/docker-login@v1
-      with:
-        username: ${{secrets.ACR_USER}} 
-        # Container registry password
-        password: ${{secrets.ACR_PASSWORD}}
-        # Container registry server url
-        login-server: ${{secrets.ACR_SERVER_URL}}
-    - name: push docker image to ACR
+    - run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/domain-header-asserter
+    - name: push docker image to dockerhub
       run: |
-        docker push ${{secrets.ACR_SERVER_URL}}/domain-header-asserter
+        docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+        docker push ${{secrets.DOCKER_USER}}/domain-header-asserter
 
