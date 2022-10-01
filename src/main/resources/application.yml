@@ -1,6 +1,7 @@
 server:
   port: 8081
 
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/appdatabase
@@ -15,19 +16,12 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
   application:
-    name: domain-header
-#
-#
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    service-url:
-#      default-zone: http://localhost:8761/eureka/
-#
+    name: domain-header-service
+
+
 
 jwt:
   secret: "mou3a9kenTW44sSa3Feha"
 
-#jwt:
-#  secret: "mou3a9kenTW44sSa3Feha"
+
 
