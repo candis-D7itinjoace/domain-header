@@ -1,6 +1,5 @@
 package tn.sharing.domainheader.resources;
 
-import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -18,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import tn.sharing.domainheader.config.utilities.JwtUtils;
 import tn.sharing.domainheader.dto.AddOwnerModel;
 import tn.sharing.domainheader.dto.AuthenticationModel;
@@ -141,11 +139,6 @@ public class AuthResource {
         return enterpriseService.checkIfEnterpriseExists(enterpriseId);
     }
 
-    @GetMapping(value = "/employee/all")
-    public Flux<String> getAllEmployees() {
-//        Page<AppUser> employeeList = userService.getEmployeeList(pageSize, pageNumber);
-        return  Flux.just("hello", "from", "flux", "the fact", "that", "this", "good bye now", "i ll send the next one", "nice and clear");
-    }
 
 
 }
