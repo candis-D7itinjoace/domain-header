@@ -24,20 +24,10 @@ spring:
 #    service-url:
 #      default-zone: http://localhost:8761/eureka/
 #
-<<<<<<< HEAD
+
 jwt:
   secret: "mou3a9kenTW44sSa3Feha"
 
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      default-zone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka
-    fetch-registry: true
-  instance:
-    prefer-ip-address: true
-    hostname: eureka-0
-=======
 #jwt:
 #  secret: "mou3a9kenTW44sSa3Feha"
->>>>>>> parent of 3754d4d (first config for domain header fingers crossed)
+
