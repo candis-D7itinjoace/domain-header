@@ -21,10 +21,31 @@ jobs:
     - name: Build with Maven
       run:
         mvn clean install package
-        
-    - run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/domain-header-asserter
-    - name: push docker image to dockerhub
-      run: |
-        docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
-        docker push ${{secrets.DOCKER_USER}}/domain-header-asserter
+    
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AKS_CREDS }}
+      
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_SERVER_URL }}
+        username: ${{ secrets.ACR_USER }}
+        password: ${{ secrets.ACR_PASSWORD }}
+    - run: |
+        docker build . -t ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
+        docker push ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
+   
+    - name: 'Deploy to Azure Container Instances'
+      uses: 'azure/aci-deploy@v1'
+      with:
+        resource-group: ${{ secrets.RESOURCE_GROUP }}
+        dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+        image: ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
+        registry-login-server: ${{ secrets.ACR_SERVER_URL }}
+        registry-username: ${{ secrets.ACR_USER }}
+        registry-password: ${{ secrets.ACR_PASSWORD }}
+        name: asserter4project
+
 
