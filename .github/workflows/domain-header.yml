@@ -47,5 +47,6 @@ jobs:
         registry-username: ${{ secrets.ACR_USER }}
         registry-password: ${{ secrets.ACR_PASSWORD }}
         name: asserter4project
+        location: 'France Central'
 
 
