@@ -37,16 +37,7 @@ jobs:
         docker build . -t ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
         docker push ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
    
-    - name: 'Deploy to Azure Container Instances'
-      uses: 'azure/aci-deploy@v1'
-      with:
-        resource-group: ${{ secrets.RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-        image: ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
-        registry-login-server: ${{ secrets.ACR_SERVER_URL }}
-        registry-username: ${{ secrets.ACR_USER }}
-        registry-password: ${{ secrets.ACR_PASSWORD }}
-        name: asserter4project
-        location: 'France Central'
+    - name: announce the end
+      run: echo "the eeeeend"
 
 
