@@ -21,21 +21,11 @@ jobs:
     - name: Build with Maven
       run:
         mvn clean install package
-    
-    - name: 'Login via Azure CLI'
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AKS_CREDS }}
-      
-    - name: 'Build and push image'
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.ACR_SERVER_URL }}
-        username: ${{ secrets.ACR_USER }}
-        password: ${{ secrets.ACR_PASSWORD }}
+
     - run: |
-        docker build . -t ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
-        docker push ${{ secrets.ACR_SERVER_URL }}/domain-header:${{ github.sha }}
+        docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+        docker build .  -t ${{ secrets.DOCKER_USER }}/domain-header:${{ github.sha }}
+        docker push ${{ secrets.DOCKER_USER }}/domain-header:${{ github.sha }}
    
     - name: announce the end
       run: echo "the eeeeend"
